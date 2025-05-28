@@ -1,0 +1,23 @@
+1.- Llista quants productes de tipus “Begudes” s'han venut en una determinada localitat.
+
+SELECT 
+		COUNT(p.id) as "Bebidas Vendidas"
+FROM order_product o
+JOIN product p ON p.id = o.product_id
+JOIN customer_order co ON co.id = o.order_id
+JOIN pizzeria pi ON pi.id = co.pizzeria_id
+WHERE p.product_type = 'drinks' AND
+	  pi.city = 'Madrid'
+GROUP BY pi.id
+
+2.- Llista quantes comandes ha efectuat un determinat empleat/da.
+
+SELECT 
+		COUNT(co.id),
+        e.employee_name,
+        e.surname1,
+        e.surname2
+FROM customer_order co
+JOIN employee e on e.id = co.server_id
+WHERE e.employee_name = 'Lucía'
+GROUP BY e.id

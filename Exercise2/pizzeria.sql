@@ -15,7 +15,7 @@ CREATE TABLE employee (
 	employee_name VARCHAR(60) NOT NULL,
 	surname1 VARCHAR(60) NOT NULL,
 	surname2 VARCHAR(60) NOT NULL,
-	nif VARCHAR(20) NOT NULL,
+	nif VARCHAR(20) NOT NULL UNIQUE,
 	phone VARCHAR(20) NOT NULL,
     position ENUM ('cooker', 'runner') NOT NULL,
 	pizzeria INT UNSIGNED NOT NULL,
@@ -31,10 +31,9 @@ CREATE TABLE pizza_type (
 CREATE TABLE product (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     product_type ENUM('pizza', 'burger', 'drinks')NOT NULL,
-    description  VARCHAR(100) NOT NULL,
+    product_description  VARCHAR(100) NOT NULL,
     image  VARCHAR(100) NOT NULL,
     price DECIMAL(10, 2) NOT NULL
-    
 );
     
 
@@ -63,13 +62,17 @@ CREATE TABLE customer (
  	id INT UNSIGNED AUTO_INCREMENT,
     customer_id INT UNSIGNED NOT NULL,
     order_type ENUM ('take_away', 'delivery') NOT NULL, 
+    pizzeria_id INT UNSIGNED NOT NULL, 
+    server_id  INT UNSIGNED NOT NULL, 
     time_stamp DATETIME NOT NULL,
 	order_price DECIMAL(10, 2) NOT NULL,
 	PRIMARY KEY (id),
-    CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES customer(id)
+    CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES customer(id),
+    CONSTRAINT fk_customer_order_pizzera FOREIGN KEY (pizzeria_id) REFERENCES pizzeria(id),
+    CONSTRAINT fk_customer_order_server_id FOREIGN KEY (server_id) REFERENCES employee(id)
  );
  
- CREATE TABLE order_products (
+ CREATE TABLE order_product (
 	order_id INT UNSIGNED NOT NULL,
     product_id INT UNSIGNED NOT NULL,
     amount INT UNSIGNED NOT NULL, 
@@ -89,28 +92,29 @@ CREATE TABLE delivery (
 
 
 INSERT INTO pizzeria (full_address, zip_code, city, province) VALUES
-('123 Main St', '10001', 'New York', 'New York'),
-('456 Elm St', '90001', 'Los Angeles', 'California');
+('Calle Mayor 1', '28001', 'Madrid', 'Madrid'),
+('Av. Diagonal 100', '08019', 'Barcelona', 'Barcelona');
 
 INSERT INTO employee (employee_name, surname1, surname2, nif, phone, position, pizzeria) VALUES
-('John', 'Doe', 'Smith', 'NIF001', '555-0101', 'cooker', 1),
-('Alice', 'Brown', 'Jones', 'NIF002', '555-0102', 'runner', 1),
-('Carlos', 'Garcia', 'Lopez', 'NIF003', '555-0103', 'cooker', 2),
-('Emma', 'Johnson', 'Martinez', 'NIF004', '555-0104', 'runner', 2);
+('Carlos', 'Gómez', 'López', '12345678A', '600123456', 'cooker', 1),
+('Lucía', 'Pérez', 'Martínez', '23456789B', '600234567', 'runner', 1),
+('David', 'Fernández', 'Ruiz', '34567890C', '600345678', 'cooker', 2),
+('Laura', 'Sánchez', 'García', '45678901D', '600456789', 'runner', 2);
 
 
 INSERT INTO pizza_type (type_name) VALUES
-('Margherita'),
-('Pepperoni'),
-('Hawaiian');
+('Clásica'),
+('Especialidad'),
+('Vegetariana');
 
-INSERT INTO product (product_type, description, image, price) VALUES
-('pizza', 'Classic Margherita Pizza', 'margherita.jpg', 8.99), 
-('pizza', 'Spicy Pepperoni Pizza', 'pepperoni.jpg', 9.99),     
-('pizza', 'Hawaiian Pizza', 'hawaiian.jpg', 10.49),           
-('burger', 'Cheeseburger', 'cheeseburger.jpg', 6.99),          
-('drinks', 'Cola', 'cola.jpg', 1.99),                        
-('drinks', 'Orange Juice', 'oj.jpg', 2.49);                     
+INSERT INTO product (product_type, product_description, image, price) VALUES
+('pizza', 'Pizza Margarita', 'margarita.jpg', 8.50),
+('pizza', 'Pizza Cuatro Quesos', 'cuatro_quesos.jpg', 9.50),
+('pizza', 'Pizza Napolitana', 'napolitana.jpg', 10.50),
+('burger', 'Hamburguesa Clásica', 'hamburguesa.jpg', 7.00),
+('drinks', 'Coca-Cola 33cl', 'coca_cola.jpg', 1.80),
+('drinks', 'Agua mineral 50cl', 'agua.jpg', 1.20);
+                  
 
 INSERT INTO pizza (id, pizza_type_id) VALUES
 (1, 1),  
@@ -118,14 +122,15 @@ INSERT INTO pizza (id, pizza_type_id) VALUES
 (3, 3);  
 
 INSERT INTO customer (customer_name, surname1, surname2, full_address, zip_code, city, province, phone) VALUES
-('Michael', 'Scott', 'Halpert', '1725 Slough Ave', '18504', 'Scranton', 'Pennsylvania', '570-0001'),
-('Pam', 'Beesly', 'Halpert', '42 Art Lane', '18504', 'Scranton', 'Pennsylvania', '570-0002');
+('Juan', 'Martínez', 'Pérez', 'Calle Sol 10', '28010', 'Madrid', 'Madrid', '611111111'),
+('María', 'López', 'Gómez', 'Av. del Mar 5', '08010', 'Barcelona', 'Barcelona', '622222222');
 
-INSERT INTO customer_order (customer_id, order_type, time_stamp, order_price) VALUES
-(1, 'delivery', '2025-05-28 12:00:00', 18.97),  
-(2, 'take_away', '2025-05-28 13:00:00', 9.99);  
 
-INSERT INTO order_products (order_id, product_id, amount) VALUES
+INSERT INTO customer_order (customer_id, order_type, pizzeria_id, server_id, time_stamp, order_price) VALUES
+(1, 'delivery', 1, 2, '2025-05-27 13:45:00', 20.00),
+(2, 'take_away', 2, 2, '2025-05-27 19:15:00', 11.00);
+
+INSERT INTO order_product (order_id, product_id, amount) VALUES
 (1, 1, 1),  
 (1, 5, 1),
 (2, 2, 1);  
