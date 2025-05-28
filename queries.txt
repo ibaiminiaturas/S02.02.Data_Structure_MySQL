@@ -1,0 +1,28 @@
+Llista el total de compres d’un client/a.
+
+SELECT * 
+FROM purchase
+WHERE customer_id = '1';
+
+Llista les diferents ulleres que ha venut un empleat durant un any.
+
+SELECT 
+DISTINCT glasses.id AS "Glasses Id",
+         brand.brand_name AS "Brand",
+         employee.employee_name AS "Employee",
+         YEAR(purchase.purchase_date) AS "Year"         
+         
+FROM glasses
+JOIN purchase ON purchase.glasses_id = glasses.id
+JOIN employee ON employee.id = purchase.employee_id
+JOIN brand ON brand.id = glasses.brand
+
+Lista a los diferentes proveedores que han suministrado gafas vendidas con éxito por la óptica.
+
+SELECT 
+DISTINCT supplier.id, 
+		 supplier.supplier_name
+FROM supplier 
+JOIN brand ON supplier.id = brand.supplier
+JOIN glasses ON brand.id = glasses.brand
+JOIN purchase ON glasses.id = purchase.glasses_id;
