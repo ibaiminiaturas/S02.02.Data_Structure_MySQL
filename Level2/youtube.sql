@@ -50,3 +50,9 @@ CREATE TABLE video (
 	creation_date DATETIME NOT NULL
     );
     
+    CREATE TABLE video_tag(
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    tag_name VARCHAR(100) NOT NULL,
+	creation_date DATETIME NOT NULL
+    );
+    
