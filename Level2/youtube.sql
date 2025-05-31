@@ -5,8 +5,8 @@ USE youtube;
 CREATE TABLE youtube_user (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	user_name VARCHAR(60) NOT NULL UNIQUE,
-	email VARCHAR(60) NOT NULL,
-	password VARCHAR(30) NOT NULL,
+	email VARCHAR(60) NOT NULL UNIQUE,
+	password VARCHAR(255) NOT NULL,
     birthday_date DATETIME NOT NULL,
     sex ENUM ("Male", "Female") NOT NULL,
     country VARCHAR(60) NOT NULL,
@@ -23,26 +23,25 @@ CREATE TABLE video (
     size DOUBLE NOT NULL CHECK (size > 0),
     duration DOUBLE NOT NULL CHECK (duration > 0),
 	thumbnail MEDIUMBLOB NOT NULL,
-    reproductions BIGINT UNSIGNED , 
-    likes BIGINT UNSIGNED , 
+    reproductions BIGINT UNSIGNED, 
+    likes BIGINT UNSIGNED, 
     dislikes BIGINT UNSIGNED,
     video_state ENUM ("Public", "Hidden" , "Private") NOT NULL,
-    publisher_user_id INT UNSIGNED NOT NULL,
-    CONSTRAINT fk_publishing_user_video FOREIGN KEY (publisher_user_id) REFERENCES youtube_user(id)
+    CONSTRAINT fk_video_user_id FOREIGN KEY (user_id) REFERENCES youtube_user(id)
 );
     
 CREATE TABLE tag(
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    tag_name VARCHAR(100) NOT NULL,
+    tag_name VARCHAR(100) NOT NULL UNIQUE,
 	creation_date DATETIME NOT NULL
 );  
     
 CREATE TABLE video_tag(
-	video  INT UNSIGNED NOT NULL,
-	tag INT UNSIGNED NOT NULL,
-	PRIMARY KEY (video, tag),
-	CONSTRAINT fk_video_tag_video FOREIGN KEY (video) REFERENCES video(id),
-	CONSTRAINT fk_video_tag_tag FOREIGN KEY (tag) REFERENCES tag(id)
+	video_id  INT UNSIGNED NOT NULL,
+	tag_id INT UNSIGNED NOT NULL,
+	PRIMARY KEY (video_id, tag_id),
+	CONSTRAINT fk_video_tag_video FOREIGN KEY (video_id) REFERENCES video(id),
+	CONSTRAINT fk_video_tag_tag FOREIGN KEY (tag_id) REFERENCES tag(id)
 );
     
 CREATE TABLE channel (
@@ -76,8 +75,8 @@ CREATE TABLE playlist (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     playlist_name VARCHAR(60) NOT NULL,
 	creation_date DATETIME NOT NULL,
-    user_id INT UNSIGNED,
-    playlist_state ENUM ("Public","Private"),
+    user_id INT UNSIGNED NOT NULL,
+    playlist_state ENUM ("Public","Private") NOT NULL,
 	CONSTRAINT fk_playlist_user_id FOREIGN KEY (user_id) REFERENCES youtube_user(id)
 );
 
@@ -89,11 +88,22 @@ CREATE TABLE playlist_video(
     CONSTRAINT fk_playlist_video_id FOREIGN KEY (video_id) REFERENCES video(id)
 );
     
-CREATE TABLE comment(
+CREATE TABLE video_comment(
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    video_id INT UNSIGNED NOT NULL,
+	user_id INT UNSIGNED NOT NULL,
     comment_text VARCHAR(1000) NOT NULL,
-	creation_date DATETIME NOT NULL
+	creation_date DATETIME NOT NULL,
+    CONSTRAINT fk_video_comment_video_id FOREIGN KEY (video_id) REFERENCES video(id),
+    CONSTRAINT fk_video_comment_user_id FOREIGN KEY (user_id) REFERENCES youtube_user(id)
 );
-    
 
-    
+CREATE TABLE comment_reaction (
+    comment_id INT UNSIGNED NOT NULL,
+    user_id INT UNSIGNED NOT NULL,
+    reaction ENUM('Like', 'Dislike') NOT NULL,
+    reaction_date DATETIME NOT NULL,
+    PRIMARY KEY (comment_id, user_id),
+    CONSTRAINT fk_comment_reaction_comment_id FOREIGN KEY (comment_id) REFERENCES video_comment(id),
+    CONSTRAINT fk_comment_reaction_user_id FOREIGN KEY (user_id) REFERENCES youtube_user(id)
+);
