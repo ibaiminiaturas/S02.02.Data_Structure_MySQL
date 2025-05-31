@@ -4,14 +4,14 @@ USE youtube;
 
 CREATE TABLE youtube_user (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	user_name VARCHAR(60) NOT NULL,
+	user_name VARCHAR(60) NOT NULL UNIQUE,
 	email VARCHAR(60) NOT NULL,
 	password VARCHAR(30) NOT NULL,
     birthday_date DATETIME NOT NULL,
     sex ENUM ("Male", "Female") NOT NULL,
     country VARCHAR(60) NOT NULL,
     zip_code VARCHAR(20) NOT NULL	
-    );
+);
     
 CREATE TABLE video (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -29,39 +29,43 @@ CREATE TABLE video (
     video_state ENUM ("Public", "Hidden" , "Private") NOT NULL,
     publisher_user_id INT UNSIGNED NOT NULL,
     CONSTRAINT fk_publishing_user_video FOREIGN KEY (publisher_user_id) REFERENCES youtube_user(id)
-    );
+);
     
-    CREATE TABLE video_tag(
-		video  INT UNSIGNED NOT NULL,
-        tag INT UNSIGNED NOT NULL,
-		PRIMARY KEY (video, tag),
-        CONSTRAINT fk_video_tag_video FOREIGN KEY (video) REFERENCES video(id),
-		CONSTRAINT fk_video_tag_tag FOREIGN KEY (tag) REFERENCES tag(id)
-    );
-    
-    CREATE TABLE channel (
+CREATE TABLE tag(
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    channel_name VARCHAR(60) NOT NULL,
-	description VARCHAR(1000) NOT NULL,
+    tag_name VARCHAR(100) NOT NULL,
 	creation_date DATETIME NOT NULL
-    );
+);  
     
-    CREATE TABLE playlist (
+CREATE TABLE video_tag(
+	video  INT UNSIGNED NOT NULL,
+	tag INT UNSIGNED NOT NULL,
+	PRIMARY KEY (video, tag),
+	CONSTRAINT fk_video_tag_video FOREIGN KEY (video) REFERENCES video(id),
+	CONSTRAINT fk_video_tag_tag FOREIGN KEY (tag) REFERENCES tag(id)
+);
+    
+CREATE TABLE channel (
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    channel_name VARCHAR(60) NOT NULL UNIQUE,
+	description VARCHAR(1000) NOT NULL,
+	creation_date DATETIME NOT NULL,
+    user_id INT UNSIGNED NOT NULL,
+	CONSTRAINT fk_channel_user_id FOREIGN KEY (user_id) REFERENCES youtube_user(id)
+);
+    
+CREATE TABLE playlist (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     playlist_name VARCHAR(60) NOT NULL,
 	creation_date DATETIME NOT NULL,
     playlist_state ENUM ("Public","Private")
-    );
+);
     
-	CREATE TABLE comment(
+CREATE TABLE comment(
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     comment_text VARCHAR(1000) NOT NULL,
 	creation_date DATETIME NOT NULL
-    );
+);
     
-    CREATE TABLE video_tag(
-	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    tag_name VARCHAR(100) NOT NULL,
-	creation_date DATETIME NOT NULL
-    );
+
     
