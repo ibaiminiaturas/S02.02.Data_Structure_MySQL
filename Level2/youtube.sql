@@ -30,3 +30,10 @@ CREATE TABLE video (
     );
     
     
+    CREATE TABLE channel (
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    channel_name VARCHAR(60) NOT NULL,
+	description VARCHAR(1000) NOT NULL,
+	creation_date DATETIME NOT NULL
+    );
+    
