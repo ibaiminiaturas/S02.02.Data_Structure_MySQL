@@ -44,5 +44,9 @@ CREATE TABLE video (
     playlist_state ENUM ("Public","Private")
     );
     
-    
+	CREATE TABLE comment(
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    comment_text VARCHAR(1000) NOT NULL,
+	creation_date DATETIME NOT NULL
+    );
     
