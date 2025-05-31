@@ -53,7 +53,28 @@ CREATE TABLE channel (
     user_id INT UNSIGNED NOT NULL,
 	CONSTRAINT fk_channel_user_id FOREIGN KEY (user_id) REFERENCES youtube_user(id)
 );
-    
+
+CREATE TABLE channel_subscriptions(
+	channel_id INT UNSIGNED NOT NULL,
+	user_id INT UNSIGNED NOT NULL,
+	PRIMARY KEY (channel_id, user_id),
+    CONSTRAINT fk_channel_subscription_user_id FOREIGN KEY (user_id) REFERENCES youtube_user(id),
+    CONSTRAINT fk_channel_subscription_channel_id FOREIGN KEY (channel_id) REFERENCES channel(id)
+);
+
+CREATE TABLE video_reaction(
+	video_id INT UNSIGNED NOT NULL,
+	user_id INT UNSIGNED NOT NULL,
+	PRIMARY KEY (video_id, user_id),
+    reaction ENUM ("Like", "Dislike") NOT NULL,
+    reaction_date DATETIME NOT NULL,
+    CONSTRAINT fk_video_reaction_user_id FOREIGN KEY (user_id) REFERENCES youtube_user(id),
+    CONSTRAINT fk_video_reaction_video_id FOREIGN KEY (video_id) REFERENCES video(id)
+);
+
+
+
+
 CREATE TABLE playlist (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     playlist_name VARCHAR(60) NOT NULL,
