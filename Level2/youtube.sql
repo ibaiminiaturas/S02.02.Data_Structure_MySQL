@@ -20,11 +20,13 @@ CREATE TABLE video (
 	title VARCHAR(100) NOT NULL,
     description VARCHAR(1000) NOT NULL,
     file_name VARCHAR(100) NOT NULL,
-    size DOUBLE UNSIGNED NOT NULL,
-    duration DOUBLE UNSIGNED NOT NULL,
+    size DOUBLE NOT NULL CHECK (size > 0),
+    duration DOUBLE NOT NULL CHECK (duration > 0),
 	thumbnail MEDIUMBLOB NOT NULL,
     reproductions BIGINT UNSIGNED , 
     likes BIGINT UNSIGNED , 
     dislikes BIGINT UNSIGNED,
     state ENUM ("Public", "Hidden" , "Private") NOT NULL
     );
+    
+    
