@@ -6,7 +6,7 @@ Developed by Ibai Ramirez
 
 ## 📄 Description
 
-Level 1 exercises from topic 2 of Sprint 2: [https://itacademy.barcelonactiva.cat/mod/assign/view.php?id=4657](https://itacademy.barcelonactiva.cat/mod/assign/view.php?id=4657)
+Level 1 adn 2exercises from topic 2 of Sprint 2: [https://itacademy.barcelonactiva.cat/mod/assign/view.php?id=4657](https://itacademy.barcelonactiva.cat/mod/assign/view.php?id=4657)
 
 ## 🎯 Keywords
 
@@ -25,6 +25,8 @@ Level 1 exercises from topic 2 of Sprint 2: [https://itacademy.barcelonactiva.ca
 * Git & GitHub
 
 ## 📋 Requirements
+* LEVEL 1
+----------------------------------------------------------------------------------------------------------------------------------------------
 * Exercise 1
 * Download the script `opticians.sql` and run it in MySQL WorkBench. This will create and populate the database, located in folder "Exercise1".
 * Open the file `queries.txt` and run the 3 queries to verify that the database is correct and working, located in folder "Exercise1".
@@ -36,3 +38,9 @@ Level 1 exercises from topic 2 of Sprint 2: [https://itacademy.barcelonactiva.ca
 * Open the file `pizzeria.txt` and run the 3 queries to verify that the database is correct and working, located in folder "Exercise2".
 * Open the file `pizzeria_EER.mwb` to view the EER diagram of the database in detail, located in folder "Exercise2".
 * Alternatively, open `pizzeria_EER.png` to view it in image format, located in folder "Exercise2".
+
+* LEVEL 2
+----------------------------------------------------------------------------------------------------------------------------------------------
+* Download the script `youtube.sql` and run it in MySQL WorkBench. This will create the database.
+* Open the file `youtube_EER.mwb` to view the EER diagram of the database in detail.
+* Alternatively, open `youtube_EER.png` to view it in image format, located in folder "Exercise1".
