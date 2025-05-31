@@ -72,14 +72,21 @@ CREATE TABLE video_reaction(
     CONSTRAINT fk_video_reaction_video_id FOREIGN KEY (video_id) REFERENCES video(id)
 );
 
-
-
-
 CREATE TABLE playlist (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     playlist_name VARCHAR(60) NOT NULL,
 	creation_date DATETIME NOT NULL,
-    playlist_state ENUM ("Public","Private")
+    user_id INT UNSIGNED,
+    playlist_state ENUM ("Public","Private"),
+	CONSTRAINT fk_playlist_user_id FOREIGN KEY (user_id) REFERENCES youtube_user(id)
+);
+
+CREATE TABLE playlist_video(
+	playlist_id INT UNSIGNED NOT NULL,
+	video_id INT UNSIGNED NOT NULL,
+	PRIMARY KEY (playlist_id, video_id),
+    CONSTRAINT fk_playlist_playlist_id FOREIGN KEY (playlist_id) REFERENCES playlist(id),
+    CONSTRAINT fk_playlist_video_id FOREIGN KEY (video_id) REFERENCES video(id)
 );
     
 CREATE TABLE comment(
