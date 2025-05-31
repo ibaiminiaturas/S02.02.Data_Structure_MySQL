@@ -26,7 +26,7 @@ CREATE TABLE video (
     reproductions BIGINT UNSIGNED , 
     likes BIGINT UNSIGNED , 
     dislikes BIGINT UNSIGNED,
-    state ENUM ("Public", "Hidden" , "Private") NOT NULL
+    video_state ENUM ("Public", "Hidden" , "Private") NOT NULL
     );
     
     
@@ -36,4 +36,13 @@ CREATE TABLE video (
 	description VARCHAR(1000) NOT NULL,
 	creation_date DATETIME NOT NULL
     );
+    
+    CREATE TABLE channel (
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    playlist_name VARCHAR(60) NOT NULL,
+	creation_date DATETIME NOT NULL,
+    playlist_state ENUM ("Public","Private")
+    );
+    
+    
     
