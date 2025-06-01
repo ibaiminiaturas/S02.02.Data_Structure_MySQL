@@ -115,6 +115,23 @@ CREATE TABLE playlist_song(
     CONSTRAINT fk_playlist_songs_playlist_id FOREIGN KEY (playlist_id) REFERENCES playlist(id)
 );
 
+CREATE TABLE user_fav_album(
+    user_id INT UNSIGNED NOT NULL,
+    album_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (user_id, album_id),
+    CONSTRAINT fk_user_fav_album_user_id FOREIGN KEY (user_id) REFERENCES spotify_user(id),
+    CONSTRAINT fk_user_fav_album_album_id FOREIGN KEY (album_id) REFERENCES album(id)
+);
+
+
+CREATE TABLE user_fav_song(
+    user_id INT UNSIGNED NOT NULL,
+    song_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (user_id, song_id),
+    CONSTRAINT fk_user_fav_song_user_id FOREIGN KEY (user_id) REFERENCES spotify_user(id),
+    CONSTRAINT fk_user_fav_song_song_id FOREIGN KEY (song_id) REFERENCES song(id)
+);
+
 
 
 
