@@ -22,3 +22,14 @@ CREATE TABLE subscription(
     payment_method ENUM ("Credit Card", "Paypal") DEFAULT "Credit Card",
     CONSTRAINT fk_subscription_user_id FOREIGN KEY (user_id) REFERENCES spotify_user(id)
 );
+
+CREATE TABLE credit_card(
+	number VARCHAR(19) NOT NULL UNIQUE,
+    user_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (number, user_id),
+    expiration_month VARCHAR(2) NOT NULL,
+    expiration_year VARCHAR(4) NOT NULL,
+    cvs VARCHAR(3) NOT NULL,
+    CONSTRAINT fk_credic_card_user FOREIGN KEY (user_id) REFERENCES spotify_user(id)
+);
+
