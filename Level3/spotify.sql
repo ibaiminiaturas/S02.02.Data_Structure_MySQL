@@ -8,16 +8,15 @@ CREATE TABLE spotify_user (
     user_type ENUM ("Free", "Premium") DEFAULT "Free",
 	email VARCHAR(60) NOT NULL UNIQUE,
 	password VARCHAR(255) NOT NULL,
-    birthday_date DATETIME NOT NULL,
+    birthday_date DATE NOT NULL,
     sex ENUM ("Male", "Female") NOT NULL,
     country VARCHAR(60) NOT NULL,
     zip_code VARCHAR(20) NOT NULL	
 );
 
 CREATE TABLE subscription(
-	id INT UNSIGNED AUTO_INCREMENT,
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id INT UNSIGNED,
-    PRIMARY KEY(id, user_id),
     begin_date DATETIME NOT NULL,
     end_date DATETIME NOT NULL, -- This is the subscription renewal date, because is the same as the end date and I like it more this way
     payment_method ENUM ("Credit Card", "Paypal") DEFAULT "Credit Card",
@@ -98,7 +97,7 @@ CREATE TABLE album(
 CREATE TABLE song(
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
-    durtation_seconds  INT UNSIGNED NOT NULL,
+    duration_seconds  INT UNSIGNED NOT NULL,
     reproduction_count  BIGINT UNSIGNED NOT NULL,
     album_id INT UNSIGNED NOT NULL,
 	CONSTRAINT fk_song_album_id FOREIGN KEY (album_id) REFERENCES album(id)
@@ -109,10 +108,11 @@ CREATE TABLE playlist_song(
 	playlist_id INT UNSIGNED NOT NULL,
     song_id INT UNSIGNED NOT NULL,
     user_id INT UNSIGNED NOT NULL,
-    PRIMARY KEY (playlist_id, song_id),
     adding_date DATETIME NOT NULL,
+    PRIMARY KEY (playlist_id, song_id),
     CONSTRAINT fk_splaylist_songs_user_id FOREIGN KEY (user_id) REFERENCES spotify_user(id),
-    CONSTRAINT fk_playlist_songs_playlist_id FOREIGN KEY (playlist_id) REFERENCES playlist(id)
+    CONSTRAINT fk_playlist_songs_playlist_id FOREIGN KEY (playlist_id) REFERENCES playlist(id),
+    CONSTRAINT fk_playlist_songs_SONG_id FOREIGN KEY (song_id) REFERENCES song(id)
 );
 
 CREATE TABLE user_fav_album(
