@@ -64,8 +64,30 @@ CREATE TABLE playlist (
 );
 
 
+CREATE TABLE artist(
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    image MEDIUMBLOB
+);
+
+CREATE TABLE album(
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    publishing_year YEAR NOT NULL,
+    album_cover MEDIUMBLOB,
+    artist_id INT UNSIGNED NOT NULL
+);
+
+CREATE TABLE song(
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    durtation_seconds  INT UNSIGNED NOT NULL,
+    reproduction_count  BIGINT UNSIGNED NOT NULL,
+    album_id INT UNSIGNED NOT NULL
+);
+
 -- Here I am supossing that you can not add a song to a playlist more than once, no? it would be a bit stupid I think.
-CREATE TABLE playlist_songs(
+CREATE TABLE playlist_song(
 	playlist_id INT UNSIGNED NOT NULL,
     song_id INT UNSIGNED NOT NULL,
     user_id INT UNSIGNED NOT NULL,
@@ -74,5 +96,7 @@ CREATE TABLE playlist_songs(
     CONSTRAINT fk_splaylist_songs_user_id FOREIGN KEY (user_id) REFERENCES spotify_user(id),
     CONSTRAINT fk_playlist_songs_playlist_id FOREIGN KEY (playlist_id) REFERENCES playlist(id)
 );
+
+
 
 
