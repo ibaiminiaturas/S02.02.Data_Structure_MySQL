@@ -133,5 +133,82 @@ CREATE TABLE user_fav_song(
 );
 
 
+INSERT INTO spotify_user (user_name, user_type, email, password, birthday_date, sex, country, zip_code) VALUES
+('alice123', 'Premium', 'alice@example.com', 'hashed_password1', '1990-04-15', 'Female', 'USA', '10001'),
+('bob456', 'Free', 'bob@example.com', 'hashed_password2', '1985-11-22', 'Male', 'UK', 'SW1A1AA'),
+('carol789', 'Premium', 'carol@example.com', 'hashed_password3', '1992-07-08', 'Female', 'Canada', 'M5V3L9'),
+('dave321', 'Free', 'dave@example.com', 'hashed_password4', '1988-03-30', 'Male', 'Australia', '2000'),
+('eve654', 'Premium', 'eve@example.com', 'hashed_password5', '1995-12-12', 'Female', 'Germany', '10115'),
+('frank987', 'Free', 'frank@example.com', 'hashed_password6', '1983-09-20', 'Male', 'France', '75001');
+
+INSERT INTO subscription (user_id, begin_date, end_date, payment_method) VALUES
+(1, '2025-01-01 00:00:00', '2025-02-01 00:00:00', 'Credit Card'),
+(3, '2025-03-15 00:00:00', '2025-04-15 00:00:00', 'Paypal'),
+(5, '2025-04-01 00:00:00', '2025-05-01 00:00:00', 'Credit Card'),
+(6, '2025-02-10 00:00:00', '2025-03-10 00:00:00', 'Paypal');
+
+INSERT INTO credit_card (number, user_id, expiration_month, expiration_year, cvs) VALUES
+('1234567890123456', 1, '12', '2026', '123'),
+('9876543210987654', 5, '06', '2027', '456');
+
+INSERT INTO paypal_user (paypal_user_id, spotify_user_id) VALUES
+('paypal_user_001', 3),
+('paypal_user_002', 6);
+
+INSERT INTO playlist (playlist_name, creation_date, songs_number, user_id, is_deleted, is_shared) VALUES
+('Top Hits', '2025-05-01 10:00:00', 0, 1, 0, 1),
+('Workout', '2025-05-02 08:30:00', 0, 2, 0, 0),
+('Chill Vibes', '2025-05-03 12:00:00', 0, 3, 0, 1),
+('Oldies', '2025-05-04 15:00:00', 0, 5, 0, 0);
+
+INSERT INTO artist (name, image) VALUES
+('The Beatles', NULL),
+('Coldplay', NULL),
+('Beyonce', NULL),
+('Adele', NULL),
+('Drake', NULL),
+('Taylor Swift', NULL);
+
+INSERT INTO artists_relation (artist_id, related_artist_id) VALUES
+(1, 2),
+(2, 3),
+(4, 5),
+(5, 6);
+
+INSERT INTO album (title, publishing_year, album_cover, artist_id) VALUES
+('Abbey Road', 1969, NULL, 1),
+('Parachutes', 2000, NULL, 2),
+('Lemonade', 2016, NULL, 3),
+('25', 2015, NULL, 4),
+('Scorpion', 2018, NULL, 5),
+('1989', 2014, NULL, 6);
+
+INSERT INTO song (title, duration_seconds, reproduction_count, album_id) VALUES
+('Come Together', 259, 1000000, 1),
+('Yellow', 269, 800000, 2),
+('Formation', 213, 950000, 3),
+('Hello', 295, 1200000, 4),
+('God\'s Plan', 198, 1100000, 5),
+('Blank Space', 231, 1050000, 6);
+
+INSERT INTO playlist_song (playlist_id, song_id, user_id, adding_date) VALUES
+(1, 1, 1, '2025-05-01 10:05:00'),
+(1, 2, 1, '2025-05-01 10:10:00'),
+(2, 3, 2, '2025-05-02 08:35:00'),
+(3, 4, 3, '2025-05-03 12:05:00'),
+(3, 5, 3, '2025-05-03 12:10:00'),
+(4, 6, 5, '2025-05-04 15:05:00');
 
 
+INSERT INTO user_fav_album (user_id, album_id) VALUES
+(1, 1),
+(3, 3),
+(5, 5),
+(6, 6);
+
+
+INSERT INTO user_fav_song (user_id, song_id) VALUES
+(1, 1),
+(2, 3),
+(3, 4),
+(5, 5);
