@@ -39,8 +39,14 @@ Level 1 adn 2exercises from topic 2 of Sprint 2: [https://itacademy.barcelonacti
 * Open the file `pizzeria_EER.mwb` to view the EER diagram of the database in detail, located in folder "Exercise2".
 * Alternatively, open `pizzeria_EER.png` to view it in image format, located in folder "Exercise2".
 
-* LEVEL 2
+* LEVEL 2 - Located in LEVEL2 folder
 ----------------------------------------------------------------------------------------------------------------------------------------------
 * Download the script `youtube.sql` and run it in MySQL WorkBench. This will create the database.
 * Open the file `youtube_EER.mwb` to view the EER diagram of the database in detail.
-* Alternatively, open `youtube_EER.png` to view it in image format, located in folder "Exercise1".
+* Alternatively, open `youtube_EER.png` to view it in image format.
+
+* LEVEL 3 - Located in LEVEL3 folder
+----------------------------------------------------------------------------------------------------------------------------------------------
+* Download the script `spotify.sql` and run it in MySQL WorkBench. This will create the database.
+* Open the file `spotify_EER.mwb` to view the EER diagram of the database in detail.
+* Alternatively, open `spotify_EER.png` to view it in image format.
