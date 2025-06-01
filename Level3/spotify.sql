@@ -70,12 +70,29 @@ CREATE TABLE artist(
     image MEDIUMBLOB
 );
 
+CREATE TABLE artist_following(
+	artist_id INT UNSIGNED NOT NULL,
+    user_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (artist_id, user_id),
+	CONSTRAINT fk_artist_following_artist_id FOREIGN KEY (artist_id) REFERENCES artist(id),
+    CONSTRAINT fk_artist_following_user_id FOREIGN KEY (user_id) REFERENCES spotify_user(id)
+);	
+
+CREATE TABLE artists_relation(
+	artist_id INT UNSIGNED NOT NULL,
+    related_artist_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (artist_id, related_artist_id),
+	CONSTRAINT fk_artist_connection_artist_id FOREIGN KEY (artist_id) REFERENCES artist(id),
+    CONSTRAINT fk_artist_connection_related_artist_id FOREIGN KEY (related_artist_id) REFERENCES artist(id)
+);
+
 CREATE TABLE album(
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     publishing_year YEAR NOT NULL,
     album_cover MEDIUMBLOB,
-    artist_id INT UNSIGNED NOT NULL
+    artist_id INT UNSIGNED NOT NULL,
+    CONSTRAINT fk_album_artist_id FOREIGN KEY (artist_id) REFERENCES artist(id)
 );
 
 CREATE TABLE song(
@@ -83,7 +100,8 @@ CREATE TABLE song(
     title VARCHAR(100) NOT NULL,
     durtation_seconds  INT UNSIGNED NOT NULL,
     reproduction_count  BIGINT UNSIGNED NOT NULL,
-    album_id INT UNSIGNED NOT NULL
+    album_id INT UNSIGNED NOT NULL,
+	CONSTRAINT fk_song_album_id FOREIGN KEY (album_id) REFERENCES album(id)
 );
 
 -- Here I am supossing that you can not add a song to a playlist more than once, no? it would be a bit stupid I think.
