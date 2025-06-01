@@ -107,3 +107,59 @@ CREATE TABLE comment_reaction (
     CONSTRAINT fk_comment_reaction_comment_id FOREIGN KEY (comment_id) REFERENCES video_comment(id),
     CONSTRAINT fk_comment_reaction_user_id FOREIGN KEY (user_id) REFERENCES youtube_user(id)
 );
+
+INSERT INTO youtube_user (user_name, email, password, birthday_date, sex, country, zip_code) VALUES
+('alice', 'alice@example.com', 'hashed_pw_1', '1990-04-23', 'Female', 'USA', '90210'),
+('bob', 'bob@example.com', 'hashed_pw_2', '1988-11-05', 'Male', 'Canada', 'M5V3L9'),
+('charlie', 'charlie@example.com', 'hashed_pw_3', '1995-07-14', 'Male', 'UK', 'SW1A1AA');
+
+INSERT INTO video (user_id, publishing_date, title, description, file_name, size, duration, thumbnail, reproductions, likes, dislikes, video_state)
+VALUES
+(1, '2025-05-01 12:00:00', 'My First Video', 'Welcome to my channel!', 'video1.mp4', 25.5, 3.2, 'thumbnail1', 100, 10, 2, 'Public'),
+(2, '2025-05-02 14:30:00', 'Funny Cat Compilation', 'LOL cats all day.', 'video2.mp4', 48.2, 5.7, 'thumbnail2', 540, 85, 1, 'Public'),
+(1, '2025-05-03 16:45:00', 'Workout Routine', 'Daily home workout.', 'video3.mp4', 30.0, 7.1, 'thumbnail3', 200, 50, 5, 'Private');
+
+INSERT INTO tag (tag_name, creation_date) VALUES
+('Fitness', '2025-05-01'),
+('Cats', '2025-05-02'),
+('Funny', '2025-05-02'),
+('Tutorial', '2025-05-01');
+
+INSERT INTO video_tag (video_id, tag_id) VALUES
+(1, 4),
+(2, 2),
+(2, 3),
+(3, 1);
+
+INSERT INTO channel (channel_name, description, creation_date, user_id) VALUES
+('AliceFitness', 'Fitness and wellness tips', '2025-04-30', 1),
+('BobLaughs', 'Funny videos every week!', '2025-04-30', 2);
+
+INSERT INTO channel_subscriptions (channel_id, user_id) VALUES
+(1, 2),
+(2, 1),
+(2, 3);
+
+INSERT INTO video_reaction (video_id, user_id, reaction, reaction_date) VALUES
+(1, 2, 'Like', '2025-05-01 13:00:00'),
+(2, 1, 'Like', '2025-05-02 15:00:00'),
+(2, 3, 'Dislike', '2025-05-02 15:05:00');
+
+INSERT INTO playlist (playlist_name, creation_date, user_id, playlist_state) VALUES
+('My Favorites', '2025-05-03', 1, 'Private'),
+('Laugh Out Loud', '2025-05-03', 2, 'Public');
+
+INSERT INTO playlist_video (playlist_id, video_id) VALUES
+(1, 1),
+(1, 3),
+(2, 2);
+
+INSERT INTO video_comment (video_id, user_id, comment_text, creation_date) VALUES
+(1, 2, 'Nice intro!', '2025-05-01 13:05:00'),
+(2, 3, 'This cracked me up!', '2025-05-02 16:00:00'),
+(2, 1, 'Hahaha, loved it!', '2025-05-02 16:05:00');
+
+INSERT INTO comment_reaction (comment_id, user_id, reaction, reaction_date) VALUES
+(1, 1, 'Like', '2025-05-01 13:10:00'),
+(2, 2, 'Like', '2025-05-02 16:10:00'),
+(3, 3, 'Dislike', '2025-05-02 16:15:00');
