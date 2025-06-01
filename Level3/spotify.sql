@@ -13,3 +13,12 @@ CREATE TABLE spotify_user (
     country VARCHAR(60) NOT NULL,
     zip_code VARCHAR(20) NOT NULL	
 );
+
+CREATE TABLE subscription(
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id INT UNSIGNED PRIMARY KEY,
+    begin_date DATETIME NOT NULL,
+    end_date DATETIME NOT NULL, -- This is the subscription renewal date, because is the same as the end date and I like it more this way
+    payment_method ENUM ("Credit Card", "Paypal") DEFAULT "Credit Card",
+    CONSTRAINT fk_subscription_user_id FOREIGN KEY (user_id) REFERENCES spotify_user(id)
+);
